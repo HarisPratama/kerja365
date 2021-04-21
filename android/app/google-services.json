@@ -1,0 +1,77 @@
+{
+  "project_info": {
+    "project_number": "779065960814",
+    "firebase_url": "https://kerja365-bdfe0.firebaseio.com",
+    "project_id": "kerja365-bdfe0",
+    "storage_bucket": "kerja365-bdfe0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:779065960814:android:650aa6839eac820657797f",
+        "android_client_info": {
+          "package_name": "com.kerja365app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "779065960814-fan6b1272v5927v58rhs3ie4hsviprst.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPoO1BhRIxTgfnkEwGPU4WbEy0wZWRVgQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "779065960814-fan6b1272v5927v58rhs3ie4hsviprst.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:779065960814:android:3cca2be0f5cfb25857797f",
+        "android_client_info": {
+          "package_name": "com.kerja365mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "779065960814-ojhe0c1j4rjcd7c6ropgfcchr3phau7q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kerja365mobile",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "779065960814-fan6b1272v5927v58rhs3ie4hsviprst.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPoO1BhRIxTgfnkEwGPU4WbEy0wZWRVgQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "779065960814-fan6b1272v5927v58rhs3ie4hsviprst.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
