@@ -161,22 +161,15 @@ const FormEducation = ({ navigation, token, edit, education }) => {
             <ILCalender />
           </View>
           <View>
-            <TouchableOpacity
-              onPress={startDate.showDatePicker}
-              style={styles.touchable_date}
-            >
-              <Text>{education.startDate ? education.startDate : dateConvert(startDate.date)}</Text>
-            </TouchableOpacity>
-            {startDate.show && (
-              <DateTimePicker
-                testID="dateTimePicker1"
+              <Form
+                type='date'
+                placeholder='Start date'
                 value={startDate.date}
                 mode={startDate.mode}
-                is24Hour={true}
-                display={'spinner'}
-                onChange={startDate.onChange}
+                show={startDate.show}
+                onPress={startDate.showDatePicker}
+                onChange={startDate.onChange} 
               />
-            )}
           </View>
         </View>
         <View>
@@ -194,22 +187,15 @@ const FormEducation = ({ navigation, token, edit, education }) => {
               <ILCalender />
             </View>
             <View>
-              <TouchableOpacity
-                onPress={endDate.showDatePicker}
-                style={styles.touchable_date}
-              >
-                <Text>{education.endDate ? education.endDate : dateConvert(endDate.date)}</Text>
-              </TouchableOpacity>
-              {endDate.show && (
-                <DateTimePicker
-                  testID="dateTimePicker2"
-                  value={endDate.date}
-                  mode={endDate.mode}
-                  is24Hour={true}
-                  display={'spinner'}
-                  onChange={endDate.onChange}
-                />
-              )}
+             <Form
+              type='date'
+              placeholder='End date'
+              value={endDate.date}
+              mode={endDate.mode}
+              show={endDate.show} 
+              onPress={endDate.showDatePicker}
+              onChange={endDate.onChange}
+             />
             </View>
           </View>
         }

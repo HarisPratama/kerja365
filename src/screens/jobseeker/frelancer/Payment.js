@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Loading } from '../../../components';
 import { fetchVibePoints } from '../../../store/reducer/vibePointReducer';
 import { fetchTransactions } from '../../../store/reducer/transactionReducer';
+import { DropDown } from '../../../components/mikro'
 
 const Payment = ({ navigation, route }) => {
     const dispatch = useDispatch()
@@ -148,54 +149,26 @@ const Payment = ({ navigation, route }) => {
                         </View>
                     </View>
                     <View style={{ paddingHorizontal: 10, marginTop: 10 }} >
-                        <CollapsibleView
-                            title={
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }} >
-                                    <Text style={{ fontFamily: 'DMSans-Regular', fontSize: 14, flex: 1, marginLeft: 14 }} >Petunjuk Transfer ATM</Text>
-                                    <ILChevrontR />
-                                </View>
-                            }
-                            noArrow
-                            style={{ borderWidth: 0, padding: 20, backgroundColor: '#FFFF', borderRadius: 10 }}
+                        <DropDown
+                            title="Petunjuk Transfer ATM"
+                            icon={false}
                         >
-
-                        </CollapsibleView>
-                        <CollapsibleView
-                            title={
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }} >
-                                    <Text style={{ fontFamily: 'DMSans-Regular', fontSize: 14, flex: 1, marginLeft: 14 }} >Petunjuk Transfer iBanking</Text>
-                                    <ILChevrontR />
-                                </View>
-                            }
-                            noArrow
-                            style={{ borderWidth: 0, padding: 20, backgroundColor: '#FFFF', borderRadius: 10 }}
+                        </DropDown>
+                        <DropDown
+                            title="Petunjuk Transfer iBanking"
+                            icon={false}
                         >
-
-                        </CollapsibleView>
-                        <CollapsibleView
-                            title={
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }} >
-                                    <Text style={{ fontFamily: 'DMSans-Regular', fontSize: 14, flex: 1, marginLeft: 14 }} >Petunjuk Transfer mBanking</Text>
-                                    <ILChevrontR />
-                                </View>
-                            }
-                            noArrow
-                            style={{ borderWidth: 0, padding: 20, backgroundColor: '#FFFF', borderRadius: 10 }}
+                        </DropDown>
+                        <DropDown
+                            title="Petunjuk Transfer mBanking"
+                            icon={false}
                         >
-
-                        </CollapsibleView>
-                        <CollapsibleView
-                            title={
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }} >
-                                    <Text style={{ fontFamily: 'DMSans-Regular', fontSize: 14, flex: 1, marginLeft: 14 }} >Petunjuk Transfer SMS Banking</Text>
-                                    <ILChevrontR />
-                                </View>
-                            }
-                            noArrow
-                            style={{ borderWidth: 0, padding: 20, backgroundColor: '#FFFF', borderRadius: 10 }}
+                        </DropDown>
+                        <DropDown
+                            title="Petunjuk Transfer SMS Banking"
+                            icon={false}
                         >
-
-                        </CollapsibleView>
+                        </DropDown>  
                     </View>
                     <View style={{ paddingHorizontal: 20, paddingVertical: 70, justifyContent: 'center', alignItems: 'center' }}>
                         <TouchableOpacity
