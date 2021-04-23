@@ -161,15 +161,22 @@ const FormEducation = ({ navigation, token, edit, education }) => {
             <ILCalender />
           </View>
           <View>
-              <Form
-                type='date'
-                placeholder='Start date'
+            <TouchableOpacity
+              onPress={startDate.showDatePicker}
+              style={styles.touchable_date}
+            >
+              <Text>{education.startDate ? education.startDate : dateConvert(startDate.date)}</Text>
+            </TouchableOpacity>
+            {startDate.show && (
+              <DateTimePicker
+                testID="dateTimePicker1"
                 value={startDate.date}
                 mode={startDate.mode}
-                show={startDate.show}
-                onPress={startDate.showDatePicker}
-                onChange={startDate.onChange} 
+                is24Hour={true}
+                display={'spinner'}
+                onChange={startDate.onChange}
               />
+            )}
           </View>
         </View>
         <View>
@@ -187,15 +194,22 @@ const FormEducation = ({ navigation, token, edit, education }) => {
               <ILCalender />
             </View>
             <View>
-             <Form
-              type='date'
-              placeholder='End date'
-              value={endDate.date}
-              mode={endDate.mode}
-              show={endDate.show} 
-              onPress={endDate.showDatePicker}
-              onChange={endDate.onChange}
-             />
+              <TouchableOpacity
+                onPress={endDate.showDatePicker}
+                style={styles.touchable_date}
+              >
+                <Text>{education.endDate ? education.endDate : dateConvert(endDate.date)}</Text>
+              </TouchableOpacity>
+              {endDate.show && (
+                <DateTimePicker
+                  testID="dateTimePicker2"
+                  value={endDate.date}
+                  mode={endDate.mode}
+                  is24Hour={true}
+                  display={'spinner'}
+                  onChange={endDate.onChange}
+                />
+              )}
             </View>
           </View>
         }

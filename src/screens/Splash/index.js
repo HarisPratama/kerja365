@@ -20,6 +20,8 @@ const SplashScreen = ({ navigation }) => {
                         navigation.replace('CompanyApp');
                     } else if (data?.type === 'freelancer' || data?.type === 'fulltimer') {
                         navigation.replace('MainApp', { screen: 'Home' })
+                    } else if (data?.type === 'internal') {
+                        navigation.replace('InternalApp', { screen: 'Home' })
                     }
                 }, 3000)
             } else {

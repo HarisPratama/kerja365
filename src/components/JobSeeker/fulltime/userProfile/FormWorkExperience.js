@@ -116,15 +116,22 @@ const FormWorkExperience = ({ navigation, token, edit, experience }) => {
             <ILCalender />
           </View>
           <View style={{ flex: 1, marginLeft: 10 }} >
-          <Form
-            type='date'
-            placeholder='Start date'
-            value={startDate.date}
-            mode={startDate.mode}
-            show={startDate.show}
-            onPress={startDate.showDatePicker}
-            onChange={startDate.onChange} 
-          />
+            <TouchableOpacity
+              onPress={startDate.showDatePicker}
+              style={styles.touchable_date}
+            >
+              <Text>{experience.startDate ? experience.startDate : dateConvert(startDate.date)}</Text>
+            </TouchableOpacity>
+            {startDate.show && (
+              <DateTimePicker
+                testID="dateTimePicker1"
+                value={startDate.date}
+                mode={startDate.mode}
+                is24Hour={true}
+                display={'spinner'}
+                onChange={startDate.onChange}
+              />
+            )}
           </View>
         </View>
 
@@ -144,15 +151,22 @@ const FormWorkExperience = ({ navigation, token, edit, experience }) => {
               <ILCalender />
             </View>
             <View style={{ flex: 1, marginLeft: 10 }} >
-              <Form
-                type='date'
-                placeholder='End date'
-                value={endDate.date}
-                mode={endDate.mode}
-                show={endDate.show} 
+              <TouchableOpacity
                 onPress={endDate.showDatePicker}
-                onChange={endDate.onChange}
-              />
+                style={styles.touchable_date}
+              >
+                <Text>{experience.endDate ? experience.endDate : dateConvert(endDate.date)}</Text>
+              </TouchableOpacity>
+              {endDate.show && (
+                <DateTimePicker
+                  testID="dateTimePicker2"
+                  value={endDate.date}
+                  mode={endDate.mode}
+                  is24Hour={true}
+                  display={'spinner'}
+                  onChange={endDate.onChange}
+                />
+              )}
             </View>
           </View>
         }

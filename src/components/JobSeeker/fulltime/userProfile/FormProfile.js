@@ -140,15 +140,27 @@ const FormProfile = ({ user, navigation, token, photo }) => {
                             <ILCalender />
                         </View>
                         <View style={{ flex: 1, marginLeft: 10 }} >
-                            <Form
-                                type='date'
-                                placeholder='End date'
-                                value={date.date}
-                                mode={date.mode}
-                                show={date.show} 
+                            <TouchableOpacity
                                 onPress={date.showDatePicker}
-                                onChange={date.onChange}
-                            />
+                                style={{ borderRadius: 10, borderWidth: 1, height: 57, justifyContent: 'center', borderColor: '#C4C4C4' }}
+                            >
+                                <View style={{ flexDirection: 'row' }} >
+                                    <Text style={{ color: 'black', fontFamily: 'DMSans-Regular', marginLeft: 20, }} >
+                                        {form.dateOfBirth ? form.dateOfBirth : dateConvert(date.date)}
+                                    </Text>
+                                    <Text style={{ color: '#c4c4c4', fontFamily: 'DMSans-Regular', marginLeft: 20, }} >Date of birth</Text>
+                                </View>
+                            </TouchableOpacity>
+                            {date.show && (
+                                <DateTimePicker
+                                    testID="dateTimePicker1"
+                                    value={date.date}
+                                    mode={date.mode}
+                                    is24Hour={true}
+                                    display={'spinner'}
+                                    onChange={date.onChange}
+                                />
+                            )}
                         </View>
                     </View>
                 )}

@@ -99,15 +99,22 @@ const FormCertification = ({ navigation, token, certification, edit }) => {
             <ILCalender />
           </View>
           <View style={{ flex: 1, marginLeft: 10 }} >
-            <Form 
-              type='date'
-              placeholder='Start date'
-              value={date.date}
-              mode={date.mode}
-              show={date.show}
+            <TouchableOpacity
               onPress={date.showDatePicker}
-              onChange={date.onChange} 
-            />
+              style={styles.touchable_date}
+            >
+              <Text>{dateConvert(date.date)}</Text>
+            </TouchableOpacity>
+            {date.show && (
+              <DateTimePicker
+                testID="dateTimePicker1"
+                value={date.date}
+                mode={date.mode}
+                is24Hour={true}
+                display='spinner'
+                onChange={date.onChange}
+              />
+            )}
           </View>
         </View>
 

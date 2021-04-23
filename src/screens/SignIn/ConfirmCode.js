@@ -63,8 +63,10 @@ const ConfirmCode = ({ navigation, route }) => {
             setData('token', token)
             if (user.type.toLowerCase() === 'company') {
                 navigation.replace('CompanyApp')
-            } else {
+            } else if (user.type === 'fulltimer' || user.type === 'freelancer') {
                 navigation.replace('MainApp', { screen: 'Home' })
+            } else if (user.type === 'internal') {
+                navigation.replace('InternalApp', { screen: 'Home' })
             }
         } catch (error) {
             showMessage({

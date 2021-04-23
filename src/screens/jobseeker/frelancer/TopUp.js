@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
 import { ILCheck, ILChevrontL, ILFileText } from '../../../assets';
+import CollapsibleView from '@eliav2/react-native-collapsible-view';
 import FlashMessage, { showMessage } from 'react-native-flash-message';
-import { DropDown } from '../../../components';
 
 const TopUp = ({ navigation }) => {
 
@@ -18,49 +18,6 @@ const TopUp = ({ navigation }) => {
         } else {
             navigation.navigate('Payment', { amount: amount, bank: selected })
         }
-    }
-
-    const Banks = [
-        {
-            id: 1,
-            name: 'BNI',
-        },
-        {
-            id: 2,
-            name: 'Mandiri',
-        },
-        {
-            id: 3,
-            name: 'BCA',
-        },
-    ]
-    const renderBank = () => {
-        return (
-            <View style={{marginTop: 50}}>
-                {Banks.map(bank => {
-                    return (
-                          <TouchableOpacity 
-                            key={bank.id} 
-                            style={{paddingBottom: 40, marginLeft: 40}}
-                            onPress={() => setSelected(bank.name)} 
-                          >
-                            <View style={{flexDirection: 'row', justifyContent: 'space-between'}} >
-                                <Text style={{fontFamily: 'DMSans-Regular', fontSize: 14}} >Bank {bank.name} ( Dicek Otomatis )</Text>
-                                <View style={{flex: 1, height: 20, marginLeft: 20}} >
-                                        {selected === bank.name && (
-                                            <ILCheck/>
-                                        )}
-                                </View>
-
-                            </View>
-                            <View style={{height: 1, backgroundColor: '#eeee', marginTop: 14}} />
-                          </TouchableOpacity>
-                        
-                    )
-                })}
-            </View>
-        )
-        
     }
 
     return (
@@ -99,15 +56,73 @@ const TopUp = ({ navigation }) => {
                             </View>
                         </View>
                     </View>
-                    <DropDown
-                        title='Transfer Bank'
+                    <CollapsibleView
+                        title={
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }} >
+                                <ILFileText />
+                                <Text style={{ fontFamily: 'DMSans-Bold', fontSize: 14, flex: 1, marginLeft: 14 }} >Transfer Bank</Text>
+                            </View>
+                        }
+                        isRTL
+                        style={{ borderWidth: 0, padding: 20, backgroundColor: '#FFFF', borderRadius: 10 }}
                     >
-                        {renderBank()}
-                    </DropDown>
-                    <DropDown
-                        title='Alfamart'
+                        <View style={{ marginTop: 50 }} >
+                            <TouchableOpacity
+                                onPress={() => setSelected('BNI')}
+                                style={{ paddingBottom: 40, marginLeft: 40 }}
+                            >
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }} >
+                                    <Text style={{ fontFamily: 'DMSans-Regular', fontSize: 14 }} >Bank BNI ( Dicek Otomatis )</Text>
+                                    <View style={{ flex: 1, height: 20, marginLeft: 20 }} >
+                                        {selected === 'BNI' && (
+                                            <ILCheck />
+                                        )}
+                                    </View>
+                                </View>
+                                <View style={{ height: 1, backgroundColor: '#eeee', marginTop: 14 }} />
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={() => setSelected('Mandiri')}
+                                style={{ paddingBottom: 40, marginLeft: 40 }}
+                            >
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }} >
+                                    <Text style={{ fontFamily: 'DMSans-Regular', fontSize: 14 }} >Bank Mandiri ( Dicek Otomatis )</Text>
+                                    <View style={{ flex: 1, height: 20, marginLeft: 20 }} >
+                                        {selected === 'Mandiri' && (
+                                            <ILCheck />
+                                        )}
+                                    </View>
+                                </View>
+                                <View style={{ height: 1, backgroundColor: '#eeee', marginTop: 14 }} />
+                            </TouchableOpacity>
+                            <View />
+                            <TouchableOpacity
+                                onPress={() => setSelected('BCA')}
+                                style={{ paddingBottom: 40, marginLeft: 40 }}
+                            >
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }} >
+                                    <Text style={{ fontFamily: 'DMSans-Regular', fontSize: 14 }} >Bank BCA ( Dicek Otomatis )</Text>
+                                    <View style={{ flex: 1, height: 20, marginLeft: 20 }} >
+                                        {selected === 'BCA' && (
+                                            <ILCheck />
+                                        )}
+                                    </View>
+                                </View>
+                                <View style={{ height: 1, backgroundColor: '#eeee', marginTop: 14 }} />
+                            </TouchableOpacity>
+                        </View>
+                    </CollapsibleView>
+                    <CollapsibleView
+                        title={
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }} >
+                                <ILFileText />
+                                <Text style={{ fontFamily: 'DMSans-Bold', fontSize: 14, flex: 1, marginLeft: 14 }} >Alfamart</Text>
+                            </View>
+                        }
+                        isRTL
+                        style={{ borderWidth: 0, padding: 20, backgroundColor: '#FFFF', borderRadius: 10 }}
                     >
-                    </DropDown>
+                    </CollapsibleView>
                 </View>
                 <View style={{ marginTop: 50, justifyContent: 'center', alignItems: 'center' }} >
                     <TouchableOpacity
