@@ -2,15 +2,16 @@ import React, { useEffect } from 'react';
 import { View, Text, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { ILChevrontL, ILEllipse2, ILFileText, ILMoreVErtical } from '../../assets';
-// import { fetchProjects } from '../../store/reducer/jobPostingReducer';
+import { fetchprojects } from '../../store/reducer/projectReducer';
 
 const ListProject = ({ navigation }) => {
     const dispatch = useDispatch()
-    const projects = useSelector(({ jobPosting }) => jobPosting.Projects)
+    const projects = useSelector(({ projects }) => projects.Projects)
+    const token = useSelector(({ user }) => user.Token)
 
     useEffect(() => {
-        // dispatch(fetchProjects)
-    }, [])
+        dispatch(fetchprojects(token))
+    }, [token])
 
     return (
         <>
@@ -44,24 +45,20 @@ const ListProject = ({ navigation }) => {
                         <View style={[styles.container, { marginTop: 10 }]} >
                             {projects && projects.map(project => (
                                 <TouchableOpacity
-                                    key={project.id}
-                                    onPress={() => navigation.navigate('JobDetail', { jobId: project.id, type: project.type })}
+                                    key={project._id}
+                                    onPress={() => navigation.navigate('ProgressReport', { project: JSON.stringify(project) })}
                                     style={{ flexDirection: 'row', backgroundColor: '#ffff', justifyContent: 'space-between', alignItems: 'center', padding: 20, borderRadius: 10, marginTop: 18 }}
                                 >
                                     <Image
-                                        source={project.logo ? { uri: project.logo } : Logo}
-                                        style={{ width: 35, height: 35 }}
+                                        source={{ uri: project.photo }}
+                                        style={{ width: 50, height: 50, borderRadius: 50 / 2 }}
                                     />
                                     <View style={{ flex: 1, maxWidth: 180 }} >
-                                        <Text style={{ fontFamily: 'DMSans-Bold' }} >{project.title}</Text>
+                                        <Text style={{ fontFamily: 'DMSans-Bold', fontSize: 16 }} >{project.title}</Text>
                                         <View style={{ flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap' }} >
+                                            <Text style={{ fontFamily: 'DMSans-Bold', color: '#6b6969' }} >{project.freelancer_name}</Text>
                                             <ILEllipse2 style={{ marginLeft: 5 }} />
-                                            <View style={{ width: 5 }} />
-                                            <Text style={{ fontFamily: 'DMSans-Bold', fontSize: 12, color: '#6b6969' }} >{project.type}</Text>
                                         </View>
-                                    </View>
-                                    <View style={{ flexDirection: 'row', alignItems: 'center' }} >
-                                        <Text style={{ fontFamily: 'DMSans-Bold', marginLeft: 5 }} >{project.applicants?.length}</Text>
                                     </View>
                                     <View>
                                         <View style={{ alignSelf: 'flex-end' }} >

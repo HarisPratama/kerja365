@@ -8,7 +8,6 @@ import { fetchApplicants } from '../../store/reducer/applicantReducer';
 const Applicant = ({ navigation }) => {
     const dispatch = useDispatch()
 
-    const user = useSelector(({ user }) => user.User)
     const token = useSelector(({ user }) => user.Token)
     const applicants = useSelector(({ applicants }) => applicants.Applicants)
 
@@ -42,7 +41,7 @@ const Applicant = ({ navigation }) => {
                     {applicants && applicants.map(applicant => (
                         <TouchableOpacity
                             key={applicant._id}
-                            onPress={() => navigation.navigate('DetailJobseeker', { id: applicant.user._id, isApplicant: true })}
+                            onPress={() => navigation.navigate('DetailJobseeker', { id: applicant.user._id, isApplicant: true, applicantId: applicant._id })}
                             style={{
                                 flexDirection: 'row', justifyContent: 'space-between', marginTop: 20, backgroundColor: '#ffff', borderRadius: 10, alignItems: 'center', padding: 20
                             }}

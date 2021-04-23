@@ -12,12 +12,12 @@ const JobCard = ({ navigation, ILMoreVErtical, job, applied }) => {
                     <Image source={job?.company?.photo ? { uri: job.company.photo } : Logo} style={styles.logo} />
                 </View>
                 <View style={{ maxWidth: 225, justifyContent: 'center', flex: 1 }}>
-                    <Text style={styles.title} >{job.title}</Text>
+                    <Text style={styles.title} >{job?.title}</Text>
                     <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', maxWidth: 150 }} >
-                        <Text style={styles.desc} >{job.company.user_name}</Text>
+                        <Text style={styles.desc} >{job?.company?.user_name}</Text>
                         <ILEllipse2 />
                         <View style={{ width: 5 }} />
-                        <Text style={styles.desc} >{job.type}</Text>
+                        <Text style={styles.desc} >{job?.type}</Text>
                     </View>
                 </View>
                 <TouchableOpacity style={{ justifyContent: 'center' }}>

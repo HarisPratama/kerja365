@@ -66,7 +66,7 @@ const AddSkill = ({ navigation }) => {
         <>
             <View style={styles.container} >
                 {visible && <Text>{message}</Text>}
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 72 }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 20 }}>
                     <TouchableOpacity onPress={() => navigation.goBack()}>
                         <ILChevrontL />
                     </TouchableOpacity>

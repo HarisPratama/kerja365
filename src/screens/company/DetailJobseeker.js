@@ -4,13 +4,14 @@ import { TabView, TabBar } from 'react-native-tab-view';
 import FlashMessage, { showMessage } from 'react-native-flash-message'
 import { useDispatch, useSelector } from 'react-redux';
 import database from '@react-native-firebase/database';
-import { ILBookmarkWhite, ILChevrontL } from '../../assets';
+import { ILBookmarkWhite, ILChevrontL, ILMoreVErtical } from '../../assets';
 import Avatar from '../../assets/img/avatar.png';
 import { Loading } from '../../components';
 import { fetchBookmarkJobseekerById } from '../../store/reducer/jobseekerBookmarks';
 import { fetchGetCv, fetchJobseeker } from '../../store/reducer/userReducer';
 import instance from '../../config/axios';
 import { fetchVibePoints } from '../../store/reducer/vibePointReducer';
+import { fetchApplicant } from '../../store/reducer/applicantReducer';
 
 const Desc = ({ jobseeker }) => (
     <View style={{ backgroundColor: 'rgba(238, 238, 238, 0.3)', padding: 20 }} >
@@ -31,17 +32,35 @@ const Desc = ({ jobseeker }) => (
     </View>
 )
 
+const JobApplied = ({ applicant, navigation }) => (
+    <View style={{ flex: 1, backgroundColor: 'rgba(238, 238, 238, 0.3)', padding: 20 }} >
+        {applicant?.jobsApplied && applicant.jobsApplied.map(job => (
+            <View
+                key={job._id}
+                style={{ flexDirection: 'row', justifyContent: 'space-between', backgroundColor: '#ffff', borderRadius: 11, marginTop: 10, padding: 20, alignItems: 'center' }}
+            >
+                <View>
+                    <Text style={{ fontWeight: '700' }} >{job.title}</Text>
+                    <View style={{ flexDirection: 'row', marginTop: 10 }} >
+                        <Text style={{ fontSize: 12 }} >{job.category}</Text>
+                        <Text style={{ fontSize: 12, marginLeft: 10 }} >{job.salary}</Text>
+                    </View>
+                </View>
+                <ILMoreVErtical />
+            </View>
+        )
+        )}
+    </View>
+)
+
 const DetailJobseeker = ({ navigation, route }) => {
-    const { id, isApplicant } = route.params
+    const { id, isApplicant, applicantId } = route.params
     const dispatch = useDispatch()
 
     const initialLayout = { width: Dimensions.get('window').width };
     const [loading, setLoading] = useState(false)
     const [index, setIndex] = useState(0)
-    const [routes] = useState([
-        { key: 'desc', title: 'Description' },
-        { key: 'info', title: 'Personal Info' }
-    ])
+    const [routes, setRoutes] = useState([])
     const [alert, setAlert] = useState(false)
     const opacity = useRef(new Animated.Value(0)).current
 
@@ -51,12 +70,24 @@ const DetailJobseeker = ({ navigation, route }) => {
     const jobseeker = useSelector(({ user }) => user.Jobseeker)
     const bookmarkJobseeker = useSelector(({ jobseekerBookmarks }) => jobseekerBookmarks.BookmarkJobseeker)
     const getCvJobseeker = useSelector(({ user }) => user.GetCv)
+    const applicant = useSelector(({ applicants }) => applicants.Applicant)
 
     useEffect(() => {
         if (token) {
             dispatch(fetchJobseeker(id, token))
             dispatch(fetchGetCv(token, jobseeker._id))
             dispatch(fetchBookmarkJobseekerById(token, jobseeker._id))
+            if (isApplicant) {
+                dispatch(fetchApplicant(applicantId, token))
+                setRoutes([
+                    { key: 'desc', title: 'Description' },
+                    { key: 'info', title: 'Personal Info' },
+                    { key: 'job', title: 'Jobs Applied' }
+                ])
+            } else setRoutes([
+                { key: 'desc', title: 'Description' },
+                { key: 'info', title: 'Personal Info' }
+            ])
         }
     }, [dispatch, token, id, isApplicant])
 
@@ -66,6 +97,8 @@ const DetailJobseeker = ({ navigation, route }) => {
                 return <Desc jobseeker={jobseeker} />
             case 'info':
                 return <Text>Personal Info</Text>
+            case 'job':
+                return <JobApplied applicant={applicant} navigation={navigation} />
             default:
                 return null
         }
@@ -185,6 +218,18 @@ const DetailJobseeker = ({ navigation, route }) => {
         }
     }
 
+    const hire = async () => {
+        try {
+            await instance.patch(`/job/${applicant.jobId}/hire-freelancer`, { jobseekerId: jobseeker._id }, {
+                headers: {
+                    access_token: token
+                }
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return (
         <>
             <SafeAreaView style={{ backgroundColor: '#ffff', flex: 1 }} >
@@ -256,12 +301,12 @@ const DetailJobseeker = ({ navigation, route }) => {
                             <View style={{ width: 17 }} />
                             {Object.keys(getCvJobseeker).length < 1 ? (
                                 <TouchableOpacity
-                                    onPress={jobseeker?.type?.toLowerCase() === 'freelancer' ? () => navigation.navigate('Chat', { id: id }) : fadeIn}
+                                    onPress={fadeIn}
                                     style={{
                                         height: 52, flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', borderRadius: 5, backgroundColor: '#FF9901'
                                     }}
                                 >
-                                    <Text style={{ fontFamily: 'DMSans-Bold', color: '#ffff' }} >{jobseeker?.type?.toLowerCase() === 'freelancer' ? 'Hire' : 'Get CV'}</Text>
+                                    <Text style={{ fontFamily: 'DMSans-Bold', color: '#ffff' }} >Get CV</Text>
                                 </TouchableOpacity>
                             ) : (
                                 <View
@@ -278,7 +323,7 @@ const DetailJobseeker = ({ navigation, route }) => {
                     {jobseeker && jobseeker.type === 'freelancer' && (
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }} >
                             <TouchableOpacity
-                                onPress={() => navigation.navigate('Chat', { id: id })}
+                                onPress={() => navigation.navigate('Hire', { jobsParams: applicant?.jobsApplied ? JSON.stringify(applicant.jobsApplied) : null, jobseekerId: id })}
                                 style={{
                                     height: 52, flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', borderRadius: 5, backgroundColor: '#FF9901'
                                 }}

@@ -11,8 +11,10 @@ import AskUs from './AskUs';
 import DetailJobseeker from './DetailJobseeker';
 import CompanyProfile from './Profile';
 import BookmarkJobSeeker from './BookmarkJobSeeker';
+import Hire from './Hire'
 
 export {
+    Hire,
     BookmarkJobSeeker,
     CompanyProfile,
     DetailJobseeker,
@@ -22,8 +24,8 @@ export {
     ProjectTarget,
     ServicesDetail,
     Applicant,
-    HomeCompany, 
-    PostJob, 
+    HomeCompany,
+    PostJob,
     ProfileApplicant,
     ServicesContent
 };

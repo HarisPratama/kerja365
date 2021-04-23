@@ -26,3 +26,14 @@ export function fetchApplicants(token) {
         dispatch({ type: 'SET_APPLICANTS', payload: data })
     }
 }
+
+export function fetchApplicant(id, token) {
+    return async (dispatch) => {
+        const { data } = await instance.get(`/application/${id}`, {
+            headers: {
+                access_token: token
+            }
+        })
+        dispatch({ type: 'SET_APPLICANT', payload: data })
+    }
+}

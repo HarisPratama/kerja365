@@ -282,7 +282,7 @@ const JobDetail = ({ navigation, route }) => {
         if (application || hasSendApp) {
             return (
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', height: 52, backgroundColor: 'rgba(46, 204, 113,1.0)', borderRadius: 11 }}>
-                    <Text style={{ fontFamily: 'DMSans-Bold', color: '#ffff' }} >You have applied for this job</Text>
+                    <Text style={{ fontFamily: 'DMSans-Bold', color: '#ffff', fontSize: 20 }} >Applied</Text>
                 </View>
             )
         } else return (

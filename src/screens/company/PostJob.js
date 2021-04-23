@@ -7,6 +7,7 @@ import FlashMessage, { showMessage } from 'react-native-flash-message';
 import CurrencyInput from 'react-native-currency-input'
 import { fetchJobPosting } from '../../store/reducer/jobPostingReducer';
 import instance from '../../config/axios';
+import categories from '../../categories.json';
 
 const PostJob = ({ navigation, route }) => {
     const dispatch = useDispatch();
@@ -51,6 +52,7 @@ const PostJob = ({ navigation, route }) => {
                 useNativeDriver: true
             }).start()
         } else {
+            setVisible1(true)
             Animated.spring(translateY, {
                 toValue: 10,
                 useNativeDriver: true
@@ -351,40 +353,36 @@ const PostJob = ({ navigation, route }) => {
                                         unit='Rp '
                                         separator='.'
                                         precision={0}
-                                        style={{ marginTop: 10, paddingHorizontal: 40 }}
+                                        style={{ marginTop: 10, paddingHorizontal: 40, color: 'black' }}
                                     />
                                 </View>
                             </>
                         )}
 
                         <View style={{ padding: 20, marginTop: 25, borderRadius: 10, backgroundColor: '#ffff' }} >
-                            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }} >
+                            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', zIndex: 2 }} >
                                 <ILFileText />
                                 <Text style={{ flex: 1, fontFamily: 'DMSans-Bold', marginLeft: 11 }} >{form?.category ? form?.category : 'Category'}</Text>
                                 <TouchableOpacity onPress={() => slideIn(2)} >
                                     <ILPlusCircle />
                                 </TouchableOpacity>
                             </View>
-                            <Animated.View style={{ transform: [{ translateY: translateY }], paddingBottom: 20, paddingHorizontal: 35, opacity: opacity }} >
-                                <TouchableOpacity
-                                    onPress={() => slideOut(3, 'IT')}
-                                    style={{
-                                        backgroundColor: '#ffff',
-                                        marginTop: 20
-                                    }}
-                                >
-                                    <Text style={{ color: 'black' }} >IT</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity
-                                    onPress={() => slideOut(3, 'Marketing')}
-                                    style={{
-                                        backgroundColor: '#ffff',
-                                        marginTop: 20
-                                    }}
-                                >
-                                    <Text style={{ color: 'black' }} >Marketing</Text>
-                                </TouchableOpacity>
-                            </Animated.View>
+                            {visible1 && (
+                                <Animated.View style={{ transform: [{ translateY: translateY }], paddingBottom: 20, paddingHorizontal: 35, opacity: opacity }} >
+                                    {categories.map(category => (
+                                        <TouchableOpacity
+                                            key={category.id}
+                                            onPress={() => slideOut(3, 'IT')}
+                                            style={{
+                                                backgroundColor: '#ffff',
+                                                marginTop: 20
+                                            }}
+                                        >
+                                            <Text style={{ color: 'black' }} >{category.title}</Text>
+                                        </TouchableOpacity>
+                                    ))}
+                                </Animated.View>
+                            )}
                         </View>
 
                     </View>

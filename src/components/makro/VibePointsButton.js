@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 import { ILHexagon } from '../../assets';
+import NumberFormat from 'react-number-format';
 
 const VibePointsButton = ({ navigation, points }) => {
     return (
@@ -18,7 +19,18 @@ const VibePointsButton = ({ navigation, points }) => {
             >
                 Vibe Points
             </Text>
-            <Text style={{ color: '#ffff', fontFamily: 'DMSans-Bold', fontSize: 16 }} >{Object.keys(points).length > 0 ? points.points : '0'}</Text>
+            {Object.keys(points).length > 0 ? (
+                <NumberFormat
+                    value={points.points}
+                    thousandSeparator={true}
+                    displayType={'text'}
+                    renderText={val => (
+                        <Text style={{ color: '#ffff', fontFamily: 'DMSans-Bold', fontSize: 16 }} >{val}</Text>
+                    )}
+                />
+            ) : (
+                <Text style={{ color: '#ffff', fontFamily: 'DMSans-Bold', fontSize: 16 }} >0</Text>
+            )}
         </TouchableOpacity>
     )
 };

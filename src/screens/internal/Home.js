@@ -96,6 +96,7 @@ const HomeInternal = ({ navigation }) => {
                                 </View>
                             </TouchableOpacity>
                             <TouchableOpacity
+                                onPress={() => navigation.navigate('Bpjs')}
                             >
                                 <View style={{ alignItems: 'center' }}>
                                     <View style={{ height: 15 }}>
@@ -105,6 +106,7 @@ const HomeInternal = ({ navigation }) => {
                                 </View>
                             </TouchableOpacity>
                             <TouchableOpacity
+                                onPress={() => navigation.navigate('Loan')}
                             >
                                 <View style={{ alignItems: 'center' }}>
                                     <View style={{ height: 15 }}>

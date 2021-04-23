@@ -18,7 +18,9 @@ import {
     messageReducer,
     vibePointReducer,
     transactionReducer,
-    bankAccountReducer
+    bankAccountReducer,
+    portofolioReducer,
+    projectReducer
 } from './reducer';
 import thunk from 'redux-thunk';
 
@@ -41,7 +43,9 @@ const reducers = combineReducers({
     messages: messageReducer,
     points: vibePointReducer,
     transactions: transactionReducer,
-    bankAccounts: bankAccountReducer
+    bankAccounts: bankAccountReducer,
+    portofolios: portofolioReducer,
+    projects: projectReducer
 })
 
 const store = createStore(reducers, applyMiddleware(thunk))

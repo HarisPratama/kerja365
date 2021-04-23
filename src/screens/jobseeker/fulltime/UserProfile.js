@@ -11,6 +11,7 @@ import { fetchWorkExperiences } from '../../../store/reducer/workExperienceRedux
 import { fetchEducations } from '../../../store/reducer/educationReducer';
 import { fetchCertifications } from '../../../store/reducer/certificationReducer';
 import { fetchSkills } from '../../../store/reducer/skillsReducer';
+import { fetchPortofolios } from '../../../store/reducer/portofolioReducer';
 
 const SecondRoute = () => (
     <View style={{ backgroundColor: '#EEEE', flex: 1, padding: 20 }} >
@@ -42,7 +43,9 @@ const UserProfile = ({ navigation }) => {
             dispatch(fetchEducations(token))
             dispatch(fetchCertifications(token))
             dispatch(fetchSkills(token))
+            dispatch(fetchPortofolios(token))
         }
+        setOpacity(false)
     }, [dispatch, token])
 
     const renderScene = SceneMap({

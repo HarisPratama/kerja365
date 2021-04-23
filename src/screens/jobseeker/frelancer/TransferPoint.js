@@ -73,11 +73,19 @@ const TransferPoint = ({ navigation }) => {
                     message: 'Input amount',
                     type: 'warning'
                 })
+                setLoading(false)
             } else if (points.points < amount) {
                 showMessage({
                     message: 'Your points not enough',
                     type: 'danger'
                 })
+                setLoading(false)
+            } else if (getUser.type === 'fulltimer') {
+                showMessage({
+                    message: 'Cannot transfer point cause user not have vibe points',
+                    type: 'danger'
+                })
+                setLoading(false)
             } else {
                 const getAmount = Number(amount)
                 const getPhoneNumber = `+62${phoneNumber}`

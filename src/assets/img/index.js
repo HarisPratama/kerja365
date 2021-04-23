@@ -59,13 +59,17 @@ import ILFulltimer from './fulltimer.jpeg';
 import ILEpaySlip from './layers2.svg';
 import ILEpaySlipA from './epayslipActive.svg'
 import ILBPJS from './credit-card.svg';
-import ILLoan from './award.svg';
+import ILBPJSY from './credit-card-yellow.svg';
 import ILBookmarkY from './bookmarkYL.svg';
+import ILLoan from './award.svg';
+import ILLoanY from './award-yellow.svg';
 import ILUserApplicant from './userApplicant.svg';
 import ILStarY from './starY.svg';
 import ILDownload from './download.svg';
 
 export {
+    ILLoanY,
+    ILBPJSY,
     ILDownload,
     ILEpaySlipA,
     ILBookmarkY,

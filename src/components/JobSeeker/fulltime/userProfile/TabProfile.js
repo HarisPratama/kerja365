@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { ILAward, ILBook, ILEdit, ILFileText, ILLoader, ILMoreVErtical } from '../../../../assets';
+import { ILAward, ILBook, ILEdit, ILFileText, ILLoader } from '../../../../assets';
 import { useSelector } from 'react-redux';
 
 const Button = ({ title, onPress, type }) => {
@@ -24,6 +24,7 @@ const TabProfile = ({ navigation, user }) => {
     const educations = useSelector(({ educations }) => educations.Educations)
     const skills = useSelector(({ skills }) => skills.Skills)
     const certifications = useSelector(({ certifications }) => certifications.Certifications)
+    const portofolios = useSelector(({ portofolios }) => portofolios.Portofolios)
 
     const WorkExperienceList = ({ item, i, navigation }) => (
         <View style={{ paddingHorizontal: 20, paddingVertical: 20 }} >
@@ -89,6 +90,30 @@ const TabProfile = ({ navigation, user }) => {
         </View>
     ))
 
+    const PortofolioList = ({ item, i, navigation }) => (
+        <View style={{ paddingHorizontal: 20, paddingVertical: 20 }} >
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }} >
+                <View>
+                    <Text style={{ fontSize: 14, fontFamily: 'DMSans-Bold' }} >{item?.title}</Text>
+                    <Text style={{ fontSize: 12, fontFamily: 'DMSans-Regular' }} >{item?.desc}</Text>
+                    <Text style={{ fontSize: 12, fontFamily: 'DMSans-Regular' }} >{item?.link}</Text>
+                    <Text style={{ fontSize: 11, fontFamily: 'DMSans-Regular' }} >{item.startDate} - {item.endDate}</Text>
+                </View>
+                <View>
+                    <Button
+                        title={'Edit'}
+                        type='edit'
+                        onPress={() => navigation.navigate('AddPorto', { edit: true, id: item._id })}
+                    />
+                </View>
+            </View>
+            {i < experiences?.length - 1 && (
+                <View style={{ flex: 1, height: 1, backgroundColor: '#EEEE', marginTop: 21 }} >
+                </View>
+            )}
+        </View>
+    );
+
     return (
         <View style={{ flex: 1, padding: 20 }} >
             <View style={{ backgroundColor: '#ffff', marginTop: 14, borderRadius: 10 }}>
@@ -111,7 +136,7 @@ const TabProfile = ({ navigation, user }) => {
                     )}
                     <Button
                         title={'Add'}
-                        onPress={() => navigation.push('WorkExperience', { edit: false, id: null })}
+                        onPress={() => user.type === 'fulltimer' ? navigation.push('WorkExperience', { edit: false, id: null }) : navigation.push('AddPorto', { edit: false, id: null })}
                     />
                 </View>
                 <View>
@@ -123,27 +148,37 @@ const TabProfile = ({ navigation, user }) => {
                             navigation={navigation}
                         />
                     ))}
-                </View>
-            </View>
-            <View style={{ backgroundColor: '#ffff', marginTop: 14, borderRadius: 10 }}>
-                <View style={styles.card} >
-                    <ILBook />
-                    <Text style={styles.title} >Educations</Text>
-                    <Button
-                        title={'Add'}
-                        onPress={() => navigation.navigate('Educations', { edit: false, id: null })}
-                    />
-                </View>
-                <View>
-                    {educations && educations?.map((education, i) => (
-                        <EducationList
-                            item={education}
-                            key={education._id}
+                    {user.type === 'freelancer' && portofolios && portofolios.map((portofolio, i) => (
+                        <PortofolioList
+                            item={portofolio}
+                            key={portofolio._id}
                             i={i}
+                            navigation={navigation}
                         />
                     ))}
                 </View>
             </View>
+            {user.type === 'fulltimer' && (
+                <View style={{ backgroundColor: '#ffff', marginTop: 14, borderRadius: 10 }}>
+                    <View style={styles.card} >
+                        <ILBook />
+                        <Text style={styles.title} >Educations</Text>
+                        <Button
+                            title={'Add'}
+                            onPress={() => navigation.navigate('Educations', { edit: false, id: null })}
+                        />
+                    </View>
+                    <View>
+                        {educations && educations?.map((education, i) => (
+                            <EducationList
+                                item={education}
+                                key={education._id}
+                                i={i}
+                            />
+                        ))}
+                    </View>
+                </View>
+            )}
             <View style={{ backgroundColor: '#ffff', marginTop: 14, borderRadius: 10 }}>
                 <View style={styles.card} >
                     <ILBook />

@@ -46,7 +46,11 @@ const SignIn = ({ navigation }) => {
 
         } catch (error) {
             console.log(`Error: ${error.message}`)
-            console.log(error);
+            showMessage({
+                description: 'Opps something error',
+                type: 'danger',
+                message: error.message
+            })
             setErrorMessage(true)
             setLoading(false)
             setTimeout(() => {

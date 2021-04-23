@@ -16,9 +16,13 @@ import chattingReducer from './chattingReducer';
 import messageReducer from './messagesReducer';
 import vibePointReducer from './vibePointReducer'
 import transactionReducer from './transactionReducer';
-import bankAccountReducer from './bankAccountReducer'
+import bankAccountReducer from './bankAccountReducer';
+import portofolioReducer from './portofolioReducer';
+import projectReducer from './projectReducer'
 
 export {
+    projectReducer,
+    portofolioReducer,
     bankAccountReducer,
     transactionReducer,
     vibePointReducer,

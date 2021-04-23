@@ -28,11 +28,13 @@ const Notifications = ({ navigation }) => {
                     </View>
                     <View style={{ width: 50 }} />
                 </View>
-                <View style={{ paddingBottom: 20 }} >
-                    <TouchableOpacity>
-                        <Text style={{ color: '#2ecc71', alignSelf: 'flex-end' }} >Mark all as read</Text>
-                    </TouchableOpacity>
-                </View>
+                {notifications?.length > 0 && (
+                    <View style={{ paddingBottom: 20 }} >
+                        <TouchableOpacity>
+                            <Text style={{ color: '#2ecc71', alignSelf: 'flex-end' }} >Mark all as read</Text>
+                        </TouchableOpacity>
+                    </View>
+                )}
 
             </View>
             <ScrollView style={{ padding: 20, flex: 1, backgroundColor: 'rgba(238, 238, 238, 0.3)' }} >
@@ -40,10 +42,10 @@ const Notifications = ({ navigation }) => {
                     {notifications?.length > 0 && notifications.map(notification => (
                         <View
                             key={notification.id}
-                            style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 20, borderRadius: 11, backgroundColor: '#ffff' }}
+                            style={{ flexDirection: 'row', marginTop: 10, justifyContent: 'space-between', alignItems: 'center', padding: 20, borderRadius: 11, backgroundColor: '#ffff' }}
                         >
                             <ILEllipse />
-                            <Text>{notification.title}</Text>
+                            <Text style={{ maxWidth: 200 }} >{notification.title}</Text>
                             <TouchableOpacity
                                 style={{ padding: 7, borderRadius: 5, backgroundColor: '#2ecc71' }}
                             >

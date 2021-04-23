@@ -2,6 +2,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
+    AddPorto,
     SearchJob,
     SplashScreen,
     SignIn,
@@ -49,7 +50,10 @@ import {
     HomeInternal,
     Epayslip,
     EpayslipDetails,
-    Notifications
+    Notifications,
+    Hire,
+    Bpjs,
+    Loan
 } from '../screens';
 import { BottomNavigator } from '../components'
 
@@ -71,6 +75,16 @@ const CompanyApp = () => {
         <Tab.Navigator initialRouteName='Home' tabBar={props => <BottomNavigator {...props} />} >
             <Tab.Screen name='Profile' component={CompanyProfile} />
             <Tab.Screen name='Home' component={HomeCompany} />
+            <Tab.Screen name='Messages' component={Messages} />
+        </Tab.Navigator>
+    )
+}
+
+const InternalApp = () => {
+    return (
+        <Tab.Navigator initialRouteName='Home' tabBar={props => <BottomNavigator {...props} />} >
+            <Tab.Screen name='Epayslip' component={Epayslip} />
+            <Tab.Screen name='Home' component={HomeInternal} />
             <Tab.Screen name='Messages' component={Messages} />
         </Tab.Navigator>
     )
@@ -107,6 +121,7 @@ const Router = () => {
 
             {/* freelancer */}
             <Stack.Screen name='VibePoint' component={VibePoint} />
+            <Stack.Screen name='AddPorto' component={AddPorto} />
             <Stack.Screen name='TopUp' component={TopUp} />
             <Stack.Screen name='Payment' component={Payment} />
             <Stack.Screen name='AddSkill' component={AddSkill} />
@@ -132,11 +147,14 @@ const Router = () => {
             <Stack.Screen name='DetailJobseeker' component={DetailJobseeker} />
             <Stack.Screen name='CompanyProfile' component={CompanyProfile} />
             <Stack.Screen name="BookmarkJobSeeker" component={BookmarkJobSeeker} />
+            <Stack.Screen name="Hire" component={Hire} />
 
             {/* Internal */}
-            <Stack.Screen name='HomeInternal' component={HomeInternal} />
+            <Stack.Screen name='InternalApp' component={InternalApp} />
             <Stack.Screen name='Epayslip' component={Epayslip} />
             <Stack.Screen name='EpayslipDetails' component={EpayslipDetails} />
+            <Stack.Screen name='Bpjs' component={Bpjs} />
+            <Stack.Screen name='Loan' component={Loan} />
         </Stack.Navigator>
     )
 }

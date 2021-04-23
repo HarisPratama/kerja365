@@ -13,6 +13,7 @@ import auth from '@react-native-firebase/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserByEmail } from '../../store/reducer/userReducer';
 import instance from '../../config/axios';
+import { Loading } from '../../components'
 
 const CELL_COUNT = 6;
 
@@ -28,18 +29,22 @@ const ConfirmCode = ({ navigation, route }) => {
     const user = useSelector(({ user }) => user.User)
     const [confirm, setConfirm] = useState(null)
     const [fcmToken, setFcmToken] = useState('')
+    const [loading, setLoading] = useState(false)
+
+    const verifyPhoneNumber = async () => {
+        if (confirm === null) {
+            setLoading(true)
+            const getConfirm = await auth().verifyPhoneNumber(phoneNumber)
+            setConfirm(getConfirm)
+        } else setLoading(false)
+        const getFcmToken = await messaging().getToken()
+        setFcmToken(getFcmToken)
+    }
 
     useEffect(() => {
-        (async () => {
-            if (!confirm) {
-                const getConfirm = await auth().verifyPhoneNumber(phoneNumber)
-                setConfirm(getConfirm)
-            }
-            const getFcmToken = await messaging().getToken()
-            setFcmToken(getFcmToken)
-        })()
+        verifyPhoneNumber()
         dispatch(fetchUserByEmail(email))
-    }, [dispatch, phoneNumber])
+    }, [dispatch, confirm])
 
     const onPress = async () => {
         try {
@@ -77,51 +82,54 @@ const ConfirmCode = ({ navigation, route }) => {
     }
 
     return (
-        <View style={{ flex: 1, justifyContent: 'space-between', alignItems: 'center', paddingVertical: 57, backgroundColor: '#ffff' }} >
-            <FlashMessage position='top' />
-            <View>
-                <Text style={{ fontFamily: 'DMSans-Regular', fontSize: 30, textAlign: 'center' }} >Auth</Text>
-                <Text style={{ fontFamily: 'DMSans-Regular', fontSize: 20, color: '#6B6969', textAlign: 'center' }} >Please insert your code</Text>
-            </View>
+        <>
+            <View style={{ flex: 1, justifyContent: 'space-between', alignItems: 'center', paddingVertical: 57, backgroundColor: '#ffff' }} >
+                <FlashMessage position='top' />
+                <View>
+                    <Text style={{ fontFamily: 'DMSans-Regular', fontSize: 30, textAlign: 'center' }} >Auth</Text>
+                    <Text style={{ fontFamily: 'DMSans-Regular', fontSize: 20, color: '#6B6969', textAlign: 'center' }} >Please insert your code</Text>
+                </View>
 
-            <View>
-                <CodeField
-                    ref={ref}
-                    {...props}
-                    value={value}
-                    autoFocus
-                    onChangeText={setValue}
-                    cellCount={CELL_COUNT}
-                    rootStyle={styles.codeFieldRoot}
-                    keyboardType="number-pad"
-                    textContentType="oneTimeCode"
-                    renderCell={({ index, symbol, isFocused }) => (
-                        <Text
-                            key={index}
-                            style={[styles.cell, isFocused && styles.focusCell]}
-                            onLayout={getCellOnLayoutHandler(index)}>
-                            {symbol || (isFocused ? <Cursor /> : null)}
-                        </Text>
-                    )}
-                />
-            </View>
+                <View>
+                    <CodeField
+                        ref={ref}
+                        {...props}
+                        value={value}
+                        autoFocus
+                        onChangeText={setValue}
+                        cellCount={CELL_COUNT}
+                        rootStyle={styles.codeFieldRoot}
+                        keyboardType="number-pad"
+                        textContentType="oneTimeCode"
+                        renderCell={({ index, symbol, isFocused }) => (
+                            <Text
+                                key={index}
+                                style={[styles.cell, isFocused && styles.focusCell]}
+                                onLayout={getCellOnLayoutHandler(index)}>
+                                {symbol || (isFocused ? <Cursor /> : null)}
+                            </Text>
+                        )}
+                    />
+                </View>
 
-            <TouchableOpacity onPress={resend} >
-                <Text style={{ fontFamily: 'DMSans-Regular', fontSize: 20, color: '#6B6969' }} >Resend code</Text>
-            </TouchableOpacity>
-
-
-            <View style={{}} >
-                <TouchableOpacity
-                    onPress={onPress}
-                    style={{
-                        paddingVertical: 20, width: 200, backgroundColor: '#ff9901', borderRadius: 25
-                    }}
-                >
-                    <Text style={{ fontFamily: 'DMSans-Bold', color: '#ffff', textAlign: 'center' }} >Submit</Text>
+                <TouchableOpacity onPress={resend} >
+                    <Text style={{ fontFamily: 'DMSans-Regular', fontSize: 20, color: '#6B6969' }} >Resend code</Text>
                 </TouchableOpacity>
+
+
+                {confirm !== null && (
+                    <TouchableOpacity
+                        onPress={onPress}
+                        style={{
+                            paddingVertical: 20, width: 200, backgroundColor: '#ff9901', borderRadius: 25
+                        }}
+                    >
+                        <Text style={{ fontFamily: 'DMSans-Bold', color: '#ffff', textAlign: 'center' }} >Submit</Text>
+                    </TouchableOpacity>
+                )}
             </View>
-        </View>
+            {loading && <Loading />}
+        </>
     )
 };
 

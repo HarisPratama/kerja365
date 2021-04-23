@@ -9,8 +9,10 @@ import BankAccount from './BankAccount';
 import ProjectDetail from './ProjectDetail';
 import ProgressReport from './ProgressReport';
 import DetailReport from './DetailReport';
+import AddPorto from './AddPorto';
 
 export {
+    AddPorto,
     DetailReport,
     ProgressReport,
     ProjectDetail,

@@ -10,6 +10,7 @@ import { Freelance, Fulltime, GroupButton, UserSection, VibePointsButton, JobNew
 import { fetchVibePoints } from '../../store/reducer/vibePointReducer';
 import axios from 'axios';
 import { setNews } from '../../store/action';
+import { fetchNotifications } from '../../store/reducer/messagesReducer';
 
 const filters = ['IT', 'Marketing', 'Sales', 'UI/UX Designer', 'Frontend Developer', 'Backend Developer', 'Admin', 'Technisian']
 
@@ -46,6 +47,7 @@ const Home = ({ navigation }) => {
         if (token) {
             dispatch(fetchVibePoints(token))
         }
+        dispatch(fetchNotifications(user._id))
     }, [token])
 
     const renderScene = ({ route }) => {
@@ -106,6 +108,7 @@ const Home = ({ navigation }) => {
                     ) : (
                         <UserSection
                             user={user}
+                            navigation={navigation}
                         />
                     )}
 

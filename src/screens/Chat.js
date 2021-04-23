@@ -20,7 +20,7 @@ const ChatItem = ({ isMe, chat, currentUser, getUser }) => {
                         backgroundColor: currentUser._id === chat.sendBy ? '#81ecec' : '#9b59b6', padding: 20, borderTopRightRadius: 11, borderTopLeftRadius: 11, borderBottomLeftRadius: 11
                     }}
                 >
-                    <Text style={{ fontFamily: 'DMSans-Regular', maxWidth: 200 }} >{chat.chatContent}</Text>
+                    <Text style={{ fontFamily: 'DMSans-Regular', color: currentUser._id === chat.sendBy ? 'black' : '#ffff', maxWidth: 200 }} >{chat.chatContent}</Text>
                 </View>
                 <Text style={{ fontSize: 10, color: '#b2bec3', textAlign: 'right' }} >{chat.chatTime}</Text>
             </View>
